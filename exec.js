@@ -9,7 +9,7 @@ const xlsx = require("xlsx")
 puppeteer.use(StealthPlugin())
 
 const sheetName = "Sheet1"
-let inputFilePath = path.resolve(__dirname, "input", "batch_4.xlsx") // 输入的 Excel 文件路径
+let inputFilePath = path.resolve(__dirname, "input", "batch_6.xlsx") // 输入的 Excel 文件路径
 const outputFilePath = path.resolve(__dirname, "output", "北京-已出席-No1.xlsx") // 输出的 Excel 文件路径
 
 // 延时操作
@@ -143,6 +143,8 @@ async function performAutomation(page, selectors) {
         }
       } catch (error) {
         console.log("查看电话详情error......")
+        row["电话"] = "暂无电话1"
+        outputData.push(row)
       }
       // 转介绍也有icon-view,所以定位需要精准
 
@@ -177,6 +179,7 @@ async function performAutomation(page, selectors) {
         }
       } else {
         console.error("未找到目标元素")
+        row["电话"] = "暂无电话" // 将结果写入行数据
       }
       outputData.push(row) // 成功的数据存入内存data中
       if (index % 50 === 0) {
@@ -188,8 +191,8 @@ async function performAutomation(page, selectors) {
       }
     } catch (error) {
       console.log("查询失败,优先写入现有数据")
-      row["电话"] = "暂无电话2"
-      outputData.push(row)
+      // row["电话"] = "暂无电话2"
+      // outputData.push(row)
       await writeExcel(outputData)
       outputData = []
       await page.reload()
@@ -305,8 +308,8 @@ async function performAutomation(page, selectors) {
   console.timeEnd("myFunctionTime") // 开始计时
 
   // 防止无人监控掉线自动执行下一批,不需要监控断开exec执行,注释掉
-  async function autoContinue() {
-    inputFilePath = path.resolve(__dirname, "input", "batch_5.xlsx") // 输入的 Excel 文件路径
+  async function autoContinue(fileName) {
+    inputFilePath = path.resolve(__dirname, "input", fileName) // 输入的 Excel 文件路径
     const { rows } = readExcel(inputFilePath)
     const successNum = rows.length
     if (successNum % 5000 === 0) {
@@ -316,7 +319,11 @@ async function performAutomation(page, selectors) {
       console.timeEnd("myFunctionTime") // 开始计时
     }
   }
-  await autoContinue()
+  // await autoContinue("batch_7.xlsx")
+  // await autoContinue("batch_8.xlsx")
+  // await autoContinue("batch_9.xlsx")
+  // await autoContinue("batch_10.xlsx")
+  // await autoContinue("batch_11.xlsx")
 })()
 // excel结束ctrl F查找电话号码是否有 ***，是否有暂无电话， 是否有查询失败
 /******************************** 核心自动化脚本 end  *********************************************/
