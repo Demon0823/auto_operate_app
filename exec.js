@@ -9,7 +9,7 @@ const xlsx = require("xlsx")
 puppeteer.use(StealthPlugin())
 
 const sheetName = "Sheet1"
-let inputFilePath = path.resolve(__dirname, "input", "batch_6.xlsx") // 输入的 Excel 文件路径
+let inputFilePath = path.resolve(__dirname, "input", "batch_7.xlsx") // 输入的 Excel 文件路径
 const outputFilePath = path.resolve(__dirname, "output", "北京-已出席-No1.xlsx") // 输出的 Excel 文件路径
 
 // 延时操作
@@ -96,6 +96,8 @@ async function performAutomation(page, selectors) {
       console.log(`1.开始查询第ID: ${queryId}`)
 
       // 输入查询 ID
+      await page.type(selectors.inputField, "") // 替换为实际选择器
+      await delay(500) // 延时 1 秒
       await page.type(selectors.inputField, queryId) // 替换为实际选择器
       await delay(1000) // 延时 1 秒
       /***********  查看id详情  ***********/
@@ -143,8 +145,6 @@ async function performAutomation(page, selectors) {
         }
       } catch (error) {
         console.log("查看电话详情error......")
-        row["电话"] = "暂无电话1"
-        outputData.push(row)
       }
       // 转介绍也有icon-view,所以定位需要精准
 
@@ -195,7 +195,7 @@ async function performAutomation(page, selectors) {
       // outputData.push(row)
       await writeExcel(outputData)
       outputData = []
-      await page.reload()
+      // await page.reload()
       await delay(5000)
       console.log("---------- reload ---------")
       // try {
@@ -319,11 +319,10 @@ async function performAutomation(page, selectors) {
       console.timeEnd("myFunctionTime") // 开始计时
     }
   }
-  // await autoContinue("batch_7.xlsx")
-  // await autoContinue("batch_8.xlsx")
-  // await autoContinue("batch_9.xlsx")
-  // await autoContinue("batch_10.xlsx")
-  // await autoContinue("batch_11.xlsx")
+  await autoContinue("batch_8.xlsx")
+  await autoContinue("batch_9.xlsx")
+  await autoContinue("batch_10.xlsx")
+  await autoContinue("batch_11.xlsx")
 })()
 // excel结束ctrl F查找电话号码是否有 ***，是否有暂无电话， 是否有查询失败
 /******************************** 核心自动化脚本 end  *********************************************/
