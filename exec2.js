@@ -9,8 +9,8 @@ const xlsx = require("xlsx")
 puppeteer.use(StealthPlugin())
 
 const sheetName = "Sheet1"
-let inputFilePath = path.resolve(__dirname, "input", "00.xlsx") // 输入的 Excel 文件路径
-const outputFilePath = path.resolve(__dirname, "output", "北京-已出席-No1-00.xlsx") // 输出的 Excel 文件路径
+let inputFilePath = path.resolve(__dirname, "input", "11.xlsx") // 输入的 Excel 文件路径
+const outputFilePath = path.resolve(__dirname, "output", "北京-已出席-No1-batch000.xlsx") // 输出的 Excel 文件路径
 
 // 延时操作
 function delay(ms) {
