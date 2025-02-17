@@ -180,7 +180,8 @@ async function performAutomation(page, selectors) {
       } else {
         console.error("未找到目标元素")
         row["电话"] = "暂无电话" // 将结果写入行数据
-        await page.type(selectors.inputField, "")
+        await page.reload()
+        await delay(3000)
         continue
       }
       outputData.push(row) // 成功的数据存入内存data中
