@@ -15,5 +15,5 @@ output/
 
 package-lock.json
 yarn.lock
-cookies.json
+# cookies.json
 /src/assets/test/

@@ -4,7 +4,7 @@ const path = require("path")
 
 // 删除指定范围的行，并保留其余数据
 // 删除控制台添加的index数量(精确到错误的数据index)
-const endRow = 333
+const endRow = 130
 const fileName = "batch_4.xlsx"
 function removeRows(inputFilePath, outputFilePath) {
   const startRow = 2
