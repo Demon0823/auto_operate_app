@@ -4,8 +4,8 @@ const path = require("path")
 
 // 删除指定范围的行，并保留其余数据
 // 删除控制台添加的index数量(精确到错误的数据index)
-const endRow = 866
-const fileName = "batch_5.xlsx"
+const endRow = 718
+const fileName = "黑龙江/batch_2.xlsx"
 function removeRows(inputFilePath, outputFilePath) {
   const startRow = 2
   if (!fs.existsSync(inputFilePath)) {
@@ -26,7 +26,7 @@ function removeRows(inputFilePath, outputFilePath) {
   }
 
   // 删除指定范围的行（从第 startRow 到第 endRow）
-  const newData = [...data.slice(0, startRow - 1), ...data.slice(endRow)]
+  const newData = [...data.slice(0, startRow -    1), ...data.slice(endRow)]
 
   // 将数据写入新的工作表
   const newSheet = xlsx.utils.aoa_to_sheet(newData) // 转为工作表
