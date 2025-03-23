@@ -88,7 +88,7 @@ function delay(ms) {
   // 执行自动化操作
   console.time("myFunctionTime") // 开始计时
   const element = await page.$("body .el-icon-search")
-  for (var i = 0; i < 24; i++) {
+  for (var i = 0; i < 1000; i++) {
     console.log(i)
     await page.evaluate(el => el.click(), element)
     await delay(1000*60*110) // 延时 110 分钟
