@@ -5,14 +5,14 @@ const path = require("path")
 // 删除指定范围的行，并保留其余数据
 // 删除控制台添加
 // 的index数量(精确到错误的数据index)
-const endRow = 62
-const fileName = "湖北/batch_8.xlsx"
+const endRow = 111
+const fileName = "重庆/batch_6.xlsx"
 function removeRows(inputFilePath, outputFilePath) {
   const startRow = 2
   if (!fs.existsSync(inputFilePath)) {
     console.error("输入文件不存在:", inputFilePath)
     return
-  }
+  } 
 
   // 读取 Excel 文件
   const workbook = xlsx.readFile(inputFilePath)

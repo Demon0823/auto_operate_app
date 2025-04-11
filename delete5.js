@@ -4,9 +4,9 @@ const path = require("path")
 
 // 删除指定范围的行，并保留其余数据
 // 删除控制台添加的index数量(精确到错误的数据index)
-const endRow = 492
-const fileName = "湖北/batch_4.xlsx"
-function removeRows(inputFilePath, outputFilePath) {
+const endRow = 640
+const fileName = "重庆/batch_4.xlsx"
+function removeRows(inputFilePath, outputFilePath) {    
   const startRow = 2
   if (!fs.existsSync(inputFilePath)) {
     console.error("输入文件不存在:", inputFilePath)
