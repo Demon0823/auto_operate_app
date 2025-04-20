@@ -13,6 +13,25 @@ output/
 *.sln
 *.local
 
+exec.js
+exec2.js
+exec3.js
+exec4.js
+exec5.js
+exec6.js
+exec7.js
+exec8.js
+
+delete.js
+delete2.js
+delete3.js
+delete4.js
+delete5.js
+delete6.js
+delete7.js
+delete8.js
+
+merge.js
 package-lock.json
 yarn.lock
 # cookies.json
