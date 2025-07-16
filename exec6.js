@@ -9,8 +9,8 @@ const xlsx = require("xlsx")
 puppeteer.use(StealthPlugin())
 
 const sheetName = "Sheet1"
-let inputFilePath = path.resolve(__dirname, "input", "安徽/batch_9.xlsx") // 输入的 Excel 文件路径
-const outputFilePath = path.resolve(__dirname, "output", "安徽-未上课-No1-batch9.xlsx") // 输出的 Excel 文件路径
+let inputFilePath = path.resolve(__dirname, "input", "湖北-未上课-No1/batch_13.xlsx") // 输入的 Excel 文件路径
+const outputFilePath = path.resolve(__dirname, "output", "湖北-未上课-No1-batch13.xlsx") // 输出的 Excel 文件路径
 
 // 延时操作
 function delay(ms) {
@@ -134,18 +134,18 @@ async function performAutomation(page, selectors) {
       } catch (error) {
         console.error("操作失败:", error.message)
       }
-      await delay(1000) // 延时 1 秒
+      await delay(2500) // 延时 1 秒
       /***********  查看电话详情  ***********/
-      try {
-        if (!dialog) {
-          await page.waitForSelector("body .u-list-detail-card-user_info", {
-            hidden: false,
-            timeout: 10000,
-          })
-        }
-      } catch (error) {
-        console.log("查看电话详情error......")
-      }
+       // try {
+      //   if (!dialog) {
+      //     await page.waitForSelector("body .u-list-detail-card-user_info", {
+      //       hidden: false,
+      //       timeout: 10000,
+      //     })
+      //   }
+      // } catch (error) {
+      //   console.log("查看电话详情error......")
+      // }
       // 转介绍也有icon-view,所以定位需要精准
 
       const dtl = await page.$(
@@ -189,19 +189,23 @@ async function performAutomation(page, selectors) {
         await writeExcel(outputData)
         outputData = []
         await page.reload()
-        await delay(5000) // 延时 500 毫秒
+        await delay(1500) // 延时 500 毫秒
         continue
       }
     } catch (error) {
       console.log("查询失败,优先写入现有数据")
       // row["电话"] = "暂无电话2"
       // outputData.push(row)
+      if (!outputData.length) {
+        await page.reload()
+        console.log("------ outputData reload start ------")
+        continue
+      }
       await writeExcel(outputData)
       outputData = []
       await delay(5000)
       console.log("---------- reload start ---------")
       await page.reload()
-      await delay(5000)
       console.log("---------- reload end ---------")
       // try {
       //   await delay(5000) // 延时 500 毫秒
@@ -252,7 +256,7 @@ async function performAutomation(page, selectors) {
 
   const loginUrl =
     // 1.销售
-    // "https://cc.vipthink.cn/#/self_manage/query_practice_list_by_staff_id" // 替换为实际扫码登录页面的地址
+    // "https://cc.vipthink.cn/#/self_manage/message_list?order=desc&page_count=10&read_flag=0&sort=created_at&title=" // 替换为实际扫码登录页面的地址
     // 2.班主任
     "https://cc.vipthink.cn/#/assessment_center/report?admin_group_list=-3&attend_class=-1&date_type=finish_time&equipment_type=-1&opt_date_type=3&order=desc&page_count=10&page_num=1&sex=-1&sort=create_time&start_time=2025-01-01&status=-1" // 替换为实际扫码登录页面的地址
   const cookiesFilePath = path.resolve(__dirname, "cookies.json") // 保存 cookies 的文件路径
@@ -291,7 +295,7 @@ async function performAutomation(page, selectors) {
   // 登录后访问目标页面
   const targetUrl =
     // 1.销售
-    // "https://cc.vipthink.cn/#/self_manage/query_practice_list_by_staff_id"
+    // "https://cc.vipthink.cn/#/self_manage/message_list?order=desc&page_count=10&read_flag=0&sort=created_at&title="
     // 2.班主任
     "https://cc.vipthink.cn/#/assessment_center/report?admin_group_list=-3&attend_class=-1&date_type=finish_time&equipment_type=-1&opt_date_type=3&order=desc&page_count=10&page_num=1&sex=-1&sort=create_time&start_time=2025-01-01&status=-1" // 替换为实际目标页面地址
   await page.goto(targetUrl, { waitUntil: "networkidle2" })
